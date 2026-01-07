@@ -53,10 +53,28 @@ export const mockSubCategories: SubCategory[] = [
 ];
 
 export const mockModules: Module[] = [
+  // Data Structures modules
   { id: 'm1', subCategoryId: 'ds', name: 'Arrays', description: 'Array fundamentals', lessonCount: 4, order: 1 },
   { id: 'm2', subCategoryId: 'ds', name: 'Linked Lists', description: 'Linked list operations', lessonCount: 5, order: 2 },
   { id: 'm3', subCategoryId: 'ds', name: 'Stacks & Queues', description: 'Stack and queue structures', lessonCount: 3, order: 3 },
   { id: 'm4', subCategoryId: 'ds', name: 'Trees', description: 'Tree data structures', lessonCount: 6, order: 4 },
+  // Algorithms modules
+  { id: 'm5', subCategoryId: 'algo', name: 'Sorting Algorithms', description: 'Various sorting techniques', lessonCount: 5, order: 1 },
+  { id: 'm6', subCategoryId: 'algo', name: 'Searching Algorithms', description: 'Binary search and more', lessonCount: 3, order: 2 },
+  { id: 'm7', subCategoryId: 'algo', name: 'Graph Algorithms', description: 'BFS, DFS, Dijkstra', lessonCount: 6, order: 3 },
+  // DBMS modules
+  { id: 'm8', subCategoryId: 'dbms', name: 'SQL Basics', description: 'Introduction to SQL', lessonCount: 4, order: 1 },
+  { id: 'm9', subCategoryId: 'dbms', name: 'Normalization', description: 'Database normalization forms', lessonCount: 3, order: 2 },
+  { id: 'm10', subCategoryId: 'dbms', name: 'Transactions', description: 'ACID properties and transactions', lessonCount: 4, order: 3 },
+  { id: 'm11', subCategoryId: 'dbms', name: 'Indexing', description: 'Database indexing techniques', lessonCount: 3, order: 4 },
+  { id: 'm12', subCategoryId: 'dbms', name: 'Query Optimization', description: 'Optimizing SQL queries', lessonCount: 5, order: 5 },
+  // Digital Electronics modules
+  { id: 'm13', subCategoryId: 'dig', name: 'Boolean Algebra', description: 'Logic gates and Boolean expressions', lessonCount: 4, order: 1 },
+  { id: 'm14', subCategoryId: 'dig', name: 'Combinational Circuits', description: 'Multiplexers, decoders, adders', lessonCount: 5, order: 2 },
+  { id: 'm15', subCategoryId: 'dig', name: 'Sequential Circuits', description: 'Flip-flops and counters', lessonCount: 4, order: 3 },
+  // Analog Electronics modules
+  { id: 'm16', subCategoryId: 'ana', name: 'Diode Circuits', description: 'Diode applications and rectifiers', lessonCount: 3, order: 1 },
+  { id: 'm17', subCategoryId: 'ana', name: 'Amplifier Circuits', description: 'BJT and FET amplifiers', lessonCount: 4, order: 2 },
 ];
 
 export const mockLessons: Lesson[] = [
