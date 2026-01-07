@@ -47,6 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        content: {
+          accent: "hsl(var(--content-accent))",
+          "accent-foreground": "hsl(var(--content-accent-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +61,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      boxShadow: {
+        'content-hover': '0 4px 20px -4px hsl(var(--content-accent) / 0.15)',
       },
       borderRadius: {
         lg: "var(--radius)",
