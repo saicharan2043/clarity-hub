@@ -14,10 +14,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
           description: "group-[.toast]:text-muted-foreground",
           actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-          success: "group-[.toaster]:!bg-green-50 group-[.toaster]:!text-green-900 group-[.toaster]:!border-green-500 dark:group-[.toaster]:!bg-green-950 dark:group-[.toaster]:!text-green-100",
-          error: "group-[.toaster]:!bg-red-50 group-[.toaster]:!text-red-900 group-[.toaster]:!border-destructive dark:group-[.toaster]:!bg-red-950 dark:group-[.toaster]:!text-red-100",
-          warning: "group-[.toaster]:!bg-yellow-50 group-[.toaster]:!text-yellow-900 group-[.toaster]:!border-yellow-500 dark:group-[.toaster]:!bg-yellow-950 dark:group-[.toaster]:!text-yellow-100",
-          info: "group-[.toaster]:!bg-blue-50 group-[.toaster]:!text-blue-900 group-[.toaster]:!border-blue-500 dark:group-[.toaster]:!bg-blue-950 dark:group-[.toaster]:!text-blue-100",
+          success: "group-[.toaster]:!bg-[hsl(var(--toast-success))] group-[.toaster]:!text-[hsl(var(--toast-success-foreground))] group-[.toaster]:!border-[hsl(var(--toast-success-border))]",
+          error: "group-[.toaster]:!bg-[hsl(var(--toast-error))] group-[.toaster]:!text-[hsl(var(--toast-error-foreground))] group-[.toaster]:!border-[hsl(var(--toast-error-border))]",
+          warning: "group-[.toaster]:!bg-[hsl(var(--toast-warning))] group-[.toaster]:!text-[hsl(var(--toast-warning-foreground))] group-[.toaster]:!border-[hsl(var(--toast-warning-border))]",
+          info: "group-[.toaster]:!bg-[hsl(var(--toast-info))] group-[.toaster]:!text-[hsl(var(--toast-info-foreground))] group-[.toaster]:!border-[hsl(var(--toast-info-border))]",
         },
       }}
       {...props}
