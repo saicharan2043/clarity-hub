@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary, GlobalErrorFallback } from "@/components/error-boundary";
 import RouteErrorBoundary from "@/components/error-boundary/RouteErrorBoundary";
-import HotToaster from "@/components/ui/hot-toaster";
+import { Toaster } from "@/components/ui/sonner";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ContentHub from "./pages/ContentHub";
@@ -23,7 +23,7 @@ const App = () => (
   >
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <HotToaster />
+        <Toaster />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={
