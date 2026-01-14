@@ -11,7 +11,8 @@ import {
   Upload,
   BarChart3,
   Globe,
-  UserCheck
+  UserCheck,
+  Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +29,7 @@ const navItems = [
   { label: 'Trainers', icon: UserCheck, path: '/admin/trainers' },
   { section: 'CONTENT MANAGEMENT' },
   { label: 'Content Hub', icon: BookOpen, path: '/content-hub', active: true },
+  { label: 'Certificate Templates', icon: Award, path: '/admin/certificate-templates' },
   { label: 'Assessment Engine', icon: ClipboardList, path: '/admin/assessment-engine' },
   { section: 'ASSESSMENT' },
   { label: 'Assessment Dashboard', icon: LayoutGrid, path: '/admin/assessment-dashboard' },
