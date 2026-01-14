@@ -78,14 +78,14 @@ export const mockModules: Module[] = [
 ];
 
 export const mockLessons: Lesson[] = [
-  { id: 'l1', moduleId: 'm1', title: 'Introduction to Arrays', contentType: 'video', duration: '15:30', order: 1 },
+  { id: 'l1', moduleId: 'm1', title: 'Introduction to Arrays', contentType: 'video', duration: '15:30', order: 1, certificateTemplateId: 'cert-1' },
   { id: 'l2', moduleId: 'm1', title: 'Array Operations', contentType: 'video', duration: '22:15', order: 2 },
   { id: 'l3', moduleId: 'm1', title: 'Array Practice Problems', contentType: 'pdf', order: 3 },
-  { id: 'l4', moduleId: 'm1', title: 'Arrays Quiz', contentType: 'quiz', order: 4 },
+  { id: 'l4', moduleId: 'm1', title: 'Arrays Quiz', contentType: 'quiz', order: 4, certificateTemplateId: 'cert-2' },
   { id: 'l5', moduleId: 'm2', title: 'Singly Linked Lists', contentType: 'video', duration: '18:45', order: 1 },
   { id: 'l6', moduleId: 'm2', title: 'Doubly Linked Lists', contentType: 'video', duration: '20:00', order: 2 },
   { id: 'l7', moduleId: 'm2', title: 'Circular Linked Lists', contentType: 'text', order: 3 },
-  { id: 'l8', moduleId: 'm2', title: 'Linked List Assessment', contentType: 'assessment', order: 4 },
+  { id: 'l8', moduleId: 'm2', title: 'Linked List Assessment', contentType: 'assessment', order: 4, certificateTemplateId: 'cert-1' },
 ];
 
 // Helper functions

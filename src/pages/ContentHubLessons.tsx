@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ContentHubLayout } from '@/components/content-hub/ContentHubLayout';
 import { ContentBreadcrumb } from '@/components/content-hub/ContentBreadcrumb';
 import { ContentTable } from '@/components/content-hub/ContentTable';
 import { LevelHeader } from '@/components/content-hub/LevelHeader';
 import { EmptyState } from '@/components/content-hub/EmptyState';
+import { CertificatePreviewModal } from '@/components/certificates/CertificatePreviewModal';
 import { 
   getModuleById,
   getSubCategoryById,
@@ -11,10 +13,12 @@ import {
   getOfferTypeById,
   getLessonsByModule 
 } from '@/data/mock-content-hub';
+import { getCertificateById } from '@/data/mock-certificates';
 import { toast } from 'sonner';
 
 const ContentHubLessons = () => {
   const { moduleId } = useParams<{ moduleId: string }>();
+  const [previewTemplateId, setPreviewTemplateId] = useState<string | null>(null);
   
   const module = getModuleById(moduleId || '');
   const subCategory = module ? getSubCategoryById(module.subCategoryId) : null;
@@ -34,6 +38,20 @@ const ContentHubLessons = () => {
     toast.info(`Delete lesson: ${id}`);
   };
 
+  const handlePreviewCertificate = (templateId: string) => {
+    setPreviewTemplateId(templateId);
+  };
+
+  const handleDownloadCertificate = (templateId: string) => {
+    const template = getCertificateById(templateId);
+    if (template) {
+      toast.success(`Downloading certificate: ${template.name}`);
+      // In real implementation, this would generate and download PDF
+    }
+  };
+
+  const previewTemplate = previewTemplateId ? getCertificateById(previewTemplateId) : null;
+
   if (!module || !subCategory || !category || !offerType) {
     return (
       <ContentHubLayout>
@@ -52,13 +70,22 @@ const ContentHubLessons = () => {
     { label: module.name, path: `/content-hub/modules/${moduleId}/lessons` },
   ];
 
-  const tableItems = lessons.map((l) => ({
-    id: l.id,
-    title: l.title,
-    contentType: l.contentType,
-    duration: l.duration,
-    order: l.order,
-  }));
+  const tableItems = lessons.map((l) => {
+    const certificateTemplate = l.certificateTemplateId 
+      ? getCertificateById(l.certificateTemplateId) 
+      : null;
+    
+    return {
+      id: l.id,
+      title: l.title,
+      contentType: l.contentType,
+      duration: l.duration,
+      order: l.order,
+      certificateTemplate: certificateTemplate 
+        ? { id: certificateTemplate.id, name: certificateTemplate.name }
+        : null,
+    };
+  });
 
   return (
     <ContentHubLayout>
@@ -87,6 +114,18 @@ const ContentHubLessons = () => {
           type="lesson"
           onEdit={handleEditLesson}
           onDelete={handleDeleteLesson}
+          onPreviewCertificate={handlePreviewCertificate}
+          onDownloadCertificate={handleDownloadCertificate}
+        />
+      )}
+
+      {/* Certificate Preview Modal */}
+      {previewTemplate && (
+        <CertificatePreviewModal
+          open={!!previewTemplateId}
+          onOpenChange={(open) => !open && setPreviewTemplateId(null)}
+          content={previewTemplate.content}
+          courseName={previewTemplate.linkedItemName}
         />
       )}
 
