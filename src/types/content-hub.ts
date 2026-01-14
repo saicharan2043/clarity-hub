@@ -41,6 +41,7 @@ export interface Lesson {
   contentType: ContentType;
   duration?: string;
   order: number;
+  certificateTemplateId?: string;
 }
 
 export interface BreadcrumbItem {
