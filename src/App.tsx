@@ -11,6 +11,9 @@ import ContentHubCategories from "./pages/ContentHubCategories";
 import ContentHubSubCategories from "./pages/ContentHubSubCategories";
 import ContentHubModules from "./pages/ContentHubModules";
 import ContentHubLessons from "./pages/ContentHubLessons";
+import CertificateTemplates from "./pages/CertificateTemplates";
+import CertificateTemplateCreate from "./pages/CertificateTemplateCreate";
+import CertificateTemplateEdit from "./pages/CertificateTemplateEdit";
 import { ErrorInfo } from "react";
 
 const queryClient = new QueryClient();
@@ -56,6 +59,23 @@ const App = () => (
             <Route path="/content-hub/modules/:moduleId/lessons" element={
               <RouteErrorBoundary>
                 <ContentHubLessons />
+              </RouteErrorBoundary>
+            } />
+            
+            {/* Certificate Template Routes */}
+            <Route path="/admin/certificate-templates" element={
+              <RouteErrorBoundary>
+                <CertificateTemplates />
+              </RouteErrorBoundary>
+            } />
+            <Route path="/admin/certificate-templates/create" element={
+              <RouteErrorBoundary>
+                <CertificateTemplateCreate />
+              </RouteErrorBoundary>
+            } />
+            <Route path="/admin/certificate-templates/:id/edit" element={
+              <RouteErrorBoundary>
+                <CertificateTemplateEdit />
               </RouteErrorBoundary>
             } />
             
