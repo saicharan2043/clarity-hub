@@ -5,7 +5,6 @@ import {
   Users, 
   GraduationCap, 
   ClipboardList, 
-  Settings,
   BookOpen,
   FileQuestion,
   Upload,
@@ -15,6 +14,20 @@ import {
   Award
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/sidebar';
 
 interface ContentHubLayoutProps {
   children: ReactNode;
@@ -39,61 +52,97 @@ const navItems = [
   { label: 'Assessment Reports', icon: BarChart3, path: '/admin/assessment-reports' },
 ];
 
-export const ContentHubLayout = ({ children }: ContentHubLayoutProps) => {
+const AppSidebar = () => {
   const location = useLocation();
+  const { state } = useSidebar();
+  const isCollapsed = state === 'collapsed';
+
+  // Group nav items by section
+  const groupedItems: { section?: string; items: typeof navItems }[] = [];
+  let currentGroup: { section?: string; items: typeof navItems } = { items: [] };
+
+  navItems.forEach((item) => {
+    if ('section' in item) {
+      if (currentGroup.items.length > 0) {
+        groupedItems.push(currentGroup);
+      }
+      currentGroup = { section: item.section, items: [] };
+    } else {
+      currentGroup.items.push(item);
+    }
+  });
+  if (currentGroup.items.length > 0) {
+    groupedItems.push(currentGroup);
+  }
 
   return (
-    <div className="min-h-screen bg-background flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-card border-r border-border hidden lg:block">
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-content-accent rounded-lg flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-semibold text-foreground">LMS Admin</span>
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="border-b border-sidebar-border">
+        <div className="flex items-center gap-2 px-2 py-2">
+          <div className="w-8 h-8 bg-content-accent rounded-lg flex items-center justify-center flex-shrink-0">
+            <GraduationCap className="h-5 w-5 text-white" />
           </div>
+          {!isCollapsed && (
+            <span className="font-semibold text-sidebar-foreground">LMS Admin</span>
+          )}
         </div>
-        <nav className="p-2">
-          {navItems.map((item, index) => {
-            if ('section' in item) {
-              return (
-                <div key={index} className="px-3 py-2 mt-4 first:mt-0">
-                  <span className="text-xs font-semibold text-muted-foreground tracking-wider">
-                    {item.section}
-                  </span>
-                </div>
-              );
-            }
+      </SidebarHeader>
+      <SidebarContent>
+        {groupedItems.map((group, groupIndex) => (
+          <SidebarGroup key={groupIndex}>
+            {group.section && (
+              <SidebarGroupLabel>{group.section}</SidebarGroupLabel>
+            )}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((item) => {
+                  if ('section' in item) return null;
+                  const Icon = item.icon;
+                  const isActive = location.pathname.startsWith(item.path);
 
-            const Icon = item.icon;
-            const isActive = location.pathname.startsWith(item.path);
+                  return (
+                    <SidebarMenuItem key={item.path}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={isActive}
+                        tooltip={item.label}
+                        className={cn(
+                          isActive && 'bg-content-accent text-white hover:bg-content-accent hover:text-white'
+                        )}
+                      >
+                        <Link to={item.path}>
+                          <Icon className="h-4 w-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+    </Sidebar>
+  );
+};
 
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors',
-                  isActive
-                    ? 'bg-content-accent text-white'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                )}
-              >
-                <Icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <div className="p-6 max-w-6xl mx-auto">
-          {children}
-        </div>
-      </main>
-    </div>
+export const ContentHubLayout = ({ children }: ContentHubLayoutProps) => {
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        
+        {/* Main Content */}
+        <main className="flex-1 overflow-auto">
+          <div className="p-4 border-b border-border flex items-center gap-2">
+            <SidebarTrigger />
+          </div>
+          <div className="p-6 max-w-6xl mx-auto">
+            {children}
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 };
