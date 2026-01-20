@@ -135,8 +135,29 @@ export const ContentHubLayout = ({ children }: ContentHubLayoutProps) => {
         
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
-          <div className="p-4 border-b border-border flex items-center gap-2">
+          <div className="p-4 border-b border-border flex items-center gap-4">
             <SidebarTrigger />
+            
+            {/* Scrolling Marquee Text */}
+            <div className="flex-1 overflow-hidden">
+              <div className="animate-marquee whitespace-nowrap text-sm text-muted-foreground">
+                <span className="inline-block px-4">🎓 Welcome to Learning Management System</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">📚 Empowering education through technology</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">🚀 Build, manage and deliver impactful learning experiences</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">✨ Create certificates, assessments, and engaging content</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">🎓 Welcome to Learning Management System</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">📚 Empowering education through technology</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">🚀 Build, manage and deliver impactful learning experiences</span>
+                <span className="inline-block px-4">•</span>
+                <span className="inline-block px-4">✨ Create certificates, assessments, and engaging content</span>
+              </div>
+            </div>
           </div>
           <div className="p-6 max-w-6xl mx-auto">
             {children}
