@@ -11,8 +11,17 @@ import {
   BarChart3,
   Globe,
   UserCheck,
-  Award
+  Award,
+  Bell,
+  ChevronDown
 } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import {
   Sidebar,
@@ -141,22 +150,64 @@ export const ContentHubLayout = ({ children }: ContentHubLayoutProps) => {
             {/* Scrolling Marquee Text */}
             <div className="flex-1 overflow-hidden">
               <div className="animate-marquee whitespace-nowrap text-sm text-muted-foreground">
-                <span className="inline-block px-4">🎓 Welcome to Learning Management System</span>
+                <span className="inline-block px-4">📋 Admin Portal: Manage users, content, and assessments</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">📚 Empowering education through technology</span>
+                <span className="inline-block px-4">📊 Track learner progress and generate reports</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">🚀 Build, manage and deliver impactful learning experiences</span>
+                <span className="inline-block px-4">🎓 Create and assign certificates to courses</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">✨ Create certificates, assessments, and engaging content</span>
+                <span className="inline-block px-4">📝 Build assessments and manage question banks</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">🎓 Welcome to Learning Management System</span>
+                <span className="inline-block px-4">📋 Admin Portal: Manage users, content, and assessments</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">📚 Empowering education through technology</span>
+                <span className="inline-block px-4">📊 Track learner progress and generate reports</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">🚀 Build, manage and deliver impactful learning experiences</span>
+                <span className="inline-block px-4">🎓 Create and assign certificates to courses</span>
                 <span className="inline-block px-4">•</span>
-                <span className="inline-block px-4">✨ Create certificates, assessments, and engaging content</span>
+                <span className="inline-block px-4">📝 Build assessments and manage question banks</span>
               </div>
+            </div>
+
+            {/* Right side: Language, Notifications, Profile */}
+            <div className="flex items-center gap-4">
+              {/* Language Selector */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Globe className="h-4 w-4" />
+                  <span>EN</span>
+                  <ChevronDown className="h-3 w-3" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>English</DropdownMenuItem>
+                  <DropdownMenuItem>Hindi</DropdownMenuItem>
+                  <DropdownMenuItem>Spanish</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Notifications */}
+              <button className="relative p-2 hover:bg-muted rounded-full transition-colors">
+                <Bell className="h-5 w-5 text-muted-foreground" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full"></span>
+              </button>
+
+              {/* Profile */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <Avatar className="h-8 w-8 bg-content-accent">
+                    <AvatarFallback className="bg-content-accent text-white text-sm">AD</AvatarFallback>
+                  </Avatar>
+                  <div className="hidden md:block text-left">
+                    <p className="text-sm font-medium">Admin</p>
+                    <p className="text-xs text-muted-foreground">Administrator</p>
+                  </div>
+                  <ChevronDown className="h-3 w-3 text-muted-foreground hidden md:block" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
           <div className="p-6 max-w-6xl mx-auto">
