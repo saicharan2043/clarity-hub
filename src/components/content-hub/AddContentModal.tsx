@@ -36,7 +36,7 @@ interface AddContentModalProps {
     offerType?: string;
     category?: string;
     subCategory?: string;
-    module?: string;
+    curriculum?: string;
   };
   onSubmit: (data: {
     title: string;
@@ -89,9 +89,9 @@ export const AddContentModal = ({
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>Add New Content</DialogTitle>
-          {hierarchy.module && (
+          {hierarchy.curriculum && (
             <p className="text-sm text-muted-foreground mt-1">
-              Adding to selected module
+              Adding to selected curriculum
             </p>
           )}
         </DialogHeader>
