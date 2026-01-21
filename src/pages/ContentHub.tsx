@@ -5,7 +5,7 @@ import { ContentDataTable, ContentItem } from '@/components/content-hub/ContentD
 import { ContentPreviewModal } from '@/components/content-hub/ContentPreviewModal';
 import { AddContentModal } from '@/components/content-hub/AddContentModal';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, FileText, Layers } from 'lucide-react';
+import { Plus, BookOpen, FileText, Layers, FolderTree, GraduationCap } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   mockOfferTypes,
@@ -13,6 +13,8 @@ import {
   getSubCategoriesByCategory,
   getModulesBySubCategory,
   getLessonsByModule,
+  mockSubCategories,
+  mockLessons,
 } from '@/data/mock-content-hub';
 
 const ContentHub = () => {
@@ -20,7 +22,7 @@ const ContentHub = () => {
   const [selectedOfferType, setSelectedOfferType] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState('');
-  const [selectedModule, setSelectedModule] = useState('');
+  const [selectedCurriculum, setSelectedCurriculum] = useState('');
 
   // Modal state
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -38,15 +40,15 @@ const ContentHub = () => {
     [selectedCategory]
   );
 
-  const modules = useMemo(
+  const curriculums = useMemo(
     () => (selectedSubCategory ? getModulesBySubCategory(selectedSubCategory) : []),
     [selectedSubCategory]
   );
 
   // Convert lessons to content items
   const contentItems: ContentItem[] = useMemo(() => {
-    if (!selectedModule) return [];
-    const lessons = getLessonsByModule(selectedModule);
+    if (!selectedCurriculum) return [];
+    const lessons = getLessonsByModule(selectedCurriculum);
     return lessons.map((lesson) => ({
       id: lesson.id,
       order: lesson.order,
@@ -56,36 +58,41 @@ const ContentHub = () => {
       duration: lesson.duration,
       status: Math.random() > 0.3 ? 'published' : 'draft' as 'published' | 'draft',
     }));
-  }, [selectedModule]);
+  }, [selectedCurriculum]);
 
   // Handlers
   const handleOfferTypeChange = (value: string) => {
     setSelectedOfferType(value);
     setSelectedCategory('');
     setSelectedSubCategory('');
-    setSelectedModule('');
+    setSelectedCurriculum('');
   };
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
     setSelectedSubCategory('');
-    setSelectedModule('');
+    setSelectedCurriculum('');
   };
 
   const handleSubCategoryChange = (value: string) => {
     setSelectedSubCategory(value);
-    setSelectedModule('');
+    setSelectedCurriculum('');
   };
 
-  const handleModuleChange = (value: string) => {
-    setSelectedModule(value);
+  const handleCurriculumChange = (value: string) => {
+    setSelectedCurriculum(value);
+  };
+
+  const handleApply = () => {
+    toast.success('Filters applied successfully!');
   };
 
   const handleReset = () => {
     setSelectedOfferType('');
     setSelectedCategory('');
     setSelectedSubCategory('');
-    setSelectedModule('');
+    setSelectedCurriculum('');
+    toast.info('Filters reset');
   };
 
   const handlePreview = (item: ContentItem) => {
@@ -102,8 +109,8 @@ const ContentHub = () => {
   };
 
   const handleAddContent = () => {
-    if (!selectedModule) {
-      toast.warning('Please select a module first');
+    if (!selectedCurriculum) {
+      toast.warning('Please select a curriculum first');
       return;
     }
     setAddContentOpen(true);
@@ -113,11 +120,13 @@ const ContentHub = () => {
     toast.success(`Content "${data.title}" added successfully!`);
   };
 
-  // Stats
+  // Stats - now includes 5 cards
   const stats = [
     { label: 'Offer Types', value: mockOfferTypes.length, icon: Layers },
     { label: 'Categories', value: categories.length, icon: BookOpen },
-    { label: 'Modules', value: modules.length, icon: FileText },
+    { label: 'Sub Categories', value: subCategories.length, icon: FolderTree },
+    { label: 'Curriculums', value: curriculums.length, icon: FileText },
+    { label: 'Lessons', value: contentItems.length, icon: GraduationCap },
   ];
 
   return (
@@ -141,7 +150,7 @@ const ContentHub = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-5 gap-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
@@ -169,15 +178,16 @@ const ContentHub = () => {
               offerTypes={mockOfferTypes}
               categories={categories}
               subCategories={subCategories}
-              modules={modules}
+              curriculums={curriculums}
               selectedOfferType={selectedOfferType}
               selectedCategory={selectedCategory}
               selectedSubCategory={selectedSubCategory}
-              selectedModule={selectedModule}
+              selectedCurriculum={selectedCurriculum}
               onOfferTypeChange={handleOfferTypeChange}
               onCategoryChange={handleCategoryChange}
               onSubCategoryChange={handleSubCategoryChange}
-              onModuleChange={handleModuleChange}
+              onCurriculumChange={handleCurriculumChange}
+              onApply={handleApply}
               onReset={handleReset}
             />
           </div>
@@ -208,7 +218,7 @@ const ContentHub = () => {
           offerType: selectedOfferType,
           category: selectedCategory,
           subCategory: selectedSubCategory,
-          module: selectedModule,
+          curriculum: selectedCurriculum,
         }}
         onSubmit={handleSubmitContent}
       />

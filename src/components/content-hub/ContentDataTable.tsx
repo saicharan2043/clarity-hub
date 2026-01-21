@@ -86,15 +86,15 @@ export const ContentDataTable = ({
     <div className="rounded-xl border border-border overflow-hidden bg-card">
       <Table>
         <TableHeader>
-          <TableRow className="bg-muted/50 hover:bg-muted/50">
-            <TableHead className="w-12"></TableHead>
-            <TableHead className="w-16">Order</TableHead>
-            <TableHead>Content Title</TableHead>
-            <TableHead className="w-32">Content Type</TableHead>
-            <TableHead className="w-28">Source</TableHead>
-            <TableHead className="w-24">Duration</TableHead>
-            <TableHead className="w-28">Status</TableHead>
-            <TableHead className="w-20 text-right">Actions</TableHead>
+          <TableRow className="bg-content-accent hover:bg-content-accent">
+            <TableHead className="w-12 text-white"></TableHead>
+            <TableHead className="w-16 text-white font-medium">Order</TableHead>
+            <TableHead className="text-white font-medium">Content Title</TableHead>
+            <TableHead className="w-32 text-white font-medium">Content Type</TableHead>
+            <TableHead className="w-28 text-white font-medium">Source</TableHead>
+            <TableHead className="w-24 text-white font-medium">Duration</TableHead>
+            <TableHead className="w-28 text-white font-medium">Status</TableHead>
+            <TableHead className="w-20 text-right text-white font-medium">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
