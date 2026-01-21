@@ -210,7 +210,7 @@ export const ContentHubLayout = ({ children }: ContentHubLayoutProps) => {
               </DropdownMenu>
             </div>
           </div>
-          <div className="p-6 max-w-6xl mx-auto">
+          <div className="p-6">
             {children}
           </div>
         </main>
