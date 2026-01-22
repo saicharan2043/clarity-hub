@@ -1,11 +1,33 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary, GlobalErrorFallback } from "@/components/error-boundary";
 import RouteErrorBoundary from "@/components/error-boundary/RouteErrorBoundary";
 import { Toaster } from "@/components/ui/sonner";
+import { RoleProvider, useRole } from "@/contexts/RoleContext";
+import { ErrorInfo } from "react";
+
+// Pages
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+
+// Trainer Pages
+import { TrainerLayout } from "./components/trainer/TrainerLayout";
+import TrainerDashboard from "./pages/trainer/TrainerDashboard";
+import TrainerGroups from "./pages/trainer/TrainerGroups";
+import TrainerUsers from "./pages/trainer/TrainerUsers";
+import TrainerCourses from "./pages/trainer/TrainerCourses";
+import TrainerEvents from "./pages/trainer/TrainerEvents";
+import TrainerAttendance from "./pages/trainer/TrainerAttendance";
+import TrainerAssessments from "./pages/trainer/TrainerAssessments";
+import TrainerAssessmentReports from "./pages/trainer/TrainerAssessmentReports";
+import TrainerContentHub from "./pages/trainer/TrainerContentHub";
+import TrainerFeedback from "./pages/trainer/TrainerFeedback";
+import TrainerCertificates from "./pages/trainer/TrainerCertificates";
+import TrainerSettings from "./pages/trainer/TrainerSettings";
+
+// Content Hub (Admin)
 import ContentHub from "./pages/ContentHub";
 import ContentHubCategories from "./pages/ContentHubCategories";
 import ContentHubSubCategories from "./pages/ContentHubSubCategories";
@@ -14,9 +36,87 @@ import ContentHubLessons from "./pages/ContentHubLessons";
 import CertificateTemplates from "./pages/CertificateTemplates";
 import CertificateTemplateCreate from "./pages/CertificateTemplateCreate";
 import CertificateTemplateEdit from "./pages/CertificateTemplateEdit";
-import { ErrorInfo } from "react";
 
 const queryClient = new QueryClient();
+
+// Protected Route Component
+const ProtectedRoute = ({ children, allowedRole }: { children: React.ReactNode; allowedRole: 'trainer' | 'user' }) => {
+  const { role } = useRole();
+  
+  if (!role) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (role !== allowedRole) {
+    return <Navigate to={role === 'trainer' ? '/trainer' : '/user'} replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Trainer Route Wrapper
+const TrainerRoute = ({ children }: { children: React.ReactNode }) => (
+  <ProtectedRoute allowedRole="trainer">
+    <TrainerLayout>{children}</TrainerLayout>
+  </ProtectedRoute>
+);
+
+const AppRoutes = () => {
+  const { role } = useRole();
+
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={
+        role ? <Navigate to={role === 'trainer' ? '/trainer' : '/user'} replace /> : <Index />
+      } />
+      <Route path="/login" element={
+        role ? <Navigate to={role === 'trainer' ? '/trainer' : '/user'} replace /> : <Login />
+      } />
+
+      {/* Trainer Routes */}
+      <Route path="/trainer" element={<TrainerRoute><TrainerDashboard /></TrainerRoute>} />
+      <Route path="/trainer/groups" element={<TrainerRoute><TrainerGroups /></TrainerRoute>} />
+      <Route path="/trainer/users" element={<TrainerRoute><TrainerUsers /></TrainerRoute>} />
+      <Route path="/trainer/courses" element={<TrainerRoute><TrainerCourses /></TrainerRoute>} />
+      <Route path="/trainer/events" element={<TrainerRoute><TrainerEvents /></TrainerRoute>} />
+      <Route path="/trainer/attendance" element={<TrainerRoute><TrainerAttendance /></TrainerRoute>} />
+      <Route path="/trainer/assessments" element={<TrainerRoute><TrainerAssessments /></TrainerRoute>} />
+      <Route path="/trainer/assessment-reports" element={<TrainerRoute><TrainerAssessmentReports /></TrainerRoute>} />
+      <Route path="/trainer/content-hub" element={<TrainerRoute><TrainerContentHub /></TrainerRoute>} />
+      <Route path="/trainer/feedback" element={<TrainerRoute><TrainerFeedback /></TrainerRoute>} />
+      <Route path="/trainer/certificates" element={<TrainerRoute><TrainerCertificates /></TrainerRoute>} />
+      <Route path="/trainer/settings" element={<TrainerRoute><TrainerSettings /></TrainerRoute>} />
+
+      {/* User Routes - Placeholder for now */}
+      <Route path="/user" element={
+        <ProtectedRoute allowedRole="user">
+          <div className="min-h-screen flex items-center justify-center bg-background">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold">User Dashboard</h1>
+              <p className="text-muted-foreground">Coming soon...</p>
+            </div>
+          </div>
+        </ProtectedRoute>
+      } />
+
+      {/* Admin Content Hub Routes */}
+      <Route path="/content-hub" element={<RouteErrorBoundary><ContentHub /></RouteErrorBoundary>} />
+      <Route path="/content-hub/:offerId/categories" element={<RouteErrorBoundary><ContentHubCategories /></RouteErrorBoundary>} />
+      <Route path="/content-hub/categories/:categoryId/sub-categories" element={<RouteErrorBoundary><ContentHubSubCategories /></RouteErrorBoundary>} />
+      <Route path="/content-hub/sub-categories/:subCategoryId/modules" element={<RouteErrorBoundary><ContentHubModules /></RouteErrorBoundary>} />
+      <Route path="/content-hub/modules/:moduleId/lessons" element={<RouteErrorBoundary><ContentHubLessons /></RouteErrorBoundary>} />
+      
+      {/* Certificate Template Routes */}
+      <Route path="/admin/certificate-templates" element={<RouteErrorBoundary><CertificateTemplates /></RouteErrorBoundary>} />
+      <Route path="/admin/certificate-templates/create" element={<RouteErrorBoundary><CertificateTemplateCreate /></RouteErrorBoundary>} />
+      <Route path="/admin/certificate-templates/:id/edit" element={<RouteErrorBoundary><CertificateTemplateEdit /></RouteErrorBoundary>} />
+
+      {/* Catch-all */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 const App = () => (
   <ErrorBoundary
@@ -27,62 +127,11 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={
-              <RouteErrorBoundary>
-                <Index />
-              </RouteErrorBoundary>
-            } />
-            
-            {/* Content Hub Routes */}
-            <Route path="/content-hub" element={
-              <RouteErrorBoundary>
-                <ContentHub />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/content-hub/:offerId/categories" element={
-              <RouteErrorBoundary>
-                <ContentHubCategories />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/content-hub/categories/:categoryId/sub-categories" element={
-              <RouteErrorBoundary>
-                <ContentHubSubCategories />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/content-hub/sub-categories/:subCategoryId/modules" element={
-              <RouteErrorBoundary>
-                <ContentHubModules />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/content-hub/modules/:moduleId/lessons" element={
-              <RouteErrorBoundary>
-                <ContentHubLessons />
-              </RouteErrorBoundary>
-            } />
-            
-            {/* Certificate Template Routes */}
-            <Route path="/admin/certificate-templates" element={
-              <RouteErrorBoundary>
-                <CertificateTemplates />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/admin/certificate-templates/create" element={
-              <RouteErrorBoundary>
-                <CertificateTemplateCreate />
-              </RouteErrorBoundary>
-            } />
-            <Route path="/admin/certificate-templates/:id/edit" element={
-              <RouteErrorBoundary>
-                <CertificateTemplateEdit />
-              </RouteErrorBoundary>
-            } />
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <RoleProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </RoleProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
