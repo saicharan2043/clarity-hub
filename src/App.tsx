@@ -27,6 +27,16 @@ import TrainerFeedback from "./pages/trainer/TrainerFeedback";
 import TrainerCertificates from "./pages/trainer/TrainerCertificates";
 import TrainerSettings from "./pages/trainer/TrainerSettings";
 
+// User Pages
+import { UserLayout } from "./components/user/UserLayout";
+import UserDashboard from "./pages/user/UserDashboard";
+import UserTrainings from "./pages/user/UserTrainings";
+import UserCalendar from "./pages/user/UserCalendar";
+import UserLibrary from "./pages/user/UserLibrary";
+import UserAssessments from "./pages/user/UserAssessments";
+import UserCertificates from "./pages/user/UserCertificates";
+import UserProfile from "./pages/user/UserProfile";
+
 // Content Hub (Admin)
 import ContentHub from "./pages/ContentHub";
 import ContentHubCategories from "./pages/ContentHubCategories";
@@ -61,6 +71,13 @@ const TrainerRoute = ({ children }: { children: React.ReactNode }) => (
   </ProtectedRoute>
 );
 
+// User Route Wrapper
+const UserRoute = ({ children }: { children: React.ReactNode }) => (
+  <ProtectedRoute allowedRole="user">
+    <UserLayout>{children}</UserLayout>
+  </ProtectedRoute>
+);
+
 const AppRoutes = () => {
   const { role } = useRole();
 
@@ -88,17 +105,14 @@ const AppRoutes = () => {
       <Route path="/trainer/certificates" element={<TrainerRoute><TrainerCertificates /></TrainerRoute>} />
       <Route path="/trainer/settings" element={<TrainerRoute><TrainerSettings /></TrainerRoute>} />
 
-      {/* User Routes - Placeholder for now */}
-      <Route path="/user" element={
-        <ProtectedRoute allowedRole="user">
-          <div className="min-h-screen flex items-center justify-center bg-background">
-            <div className="text-center">
-              <h1 className="text-2xl font-bold">User Dashboard</h1>
-              <p className="text-muted-foreground">Coming soon...</p>
-            </div>
-          </div>
-        </ProtectedRoute>
-      } />
+      {/* User Routes */}
+      <Route path="/user" element={<UserRoute><UserDashboard /></UserRoute>} />
+      <Route path="/user/trainings" element={<UserRoute><UserTrainings /></UserRoute>} />
+      <Route path="/user/calendar" element={<UserRoute><UserCalendar /></UserRoute>} />
+      <Route path="/user/library" element={<UserRoute><UserLibrary /></UserRoute>} />
+      <Route path="/user/assessments" element={<UserRoute><UserAssessments /></UserRoute>} />
+      <Route path="/user/certificates" element={<UserRoute><UserCertificates /></UserRoute>} />
+      <Route path="/user/profile" element={<UserRoute><UserProfile /></UserRoute>} />
 
       {/* Admin Content Hub Routes */}
       <Route path="/content-hub" element={<RouteErrorBoundary><ContentHub /></RouteErrorBoundary>} />

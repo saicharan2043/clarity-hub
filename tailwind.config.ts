@@ -51,6 +51,10 @@ export default {
           accent: "hsl(var(--content-accent))",
           "accent-foreground": "hsl(var(--content-accent-foreground))",
         },
+        user: {
+          accent: "hsl(var(--user-accent))",
+          "accent-foreground": "hsl(var(--user-accent-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
