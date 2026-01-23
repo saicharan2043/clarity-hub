@@ -44,6 +44,10 @@ All colors MUST be HSL.
     --content-accent: 160 84% 39%;
     --content-accent-foreground: 0 0% 100%;
 
+    /* User Portal specific */
+    --user-accent: 217 91% 60%;
+    --user-accent-foreground: 0 0% 100%;
+
     /* Toast status colors */
     --toast-success: 142 76% 94%;
     --toast-success-foreground: 142 76% 20%;
