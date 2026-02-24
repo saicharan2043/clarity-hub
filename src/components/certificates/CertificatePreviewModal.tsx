@@ -22,7 +22,7 @@ export const CertificatePreviewModal = ({
 }: CertificatePreviewModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-auto">
+      <DialogContent className="max-w-[90vw] w-full max-h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle>Certificate Preview</DialogTitle>
         </DialogHeader>
