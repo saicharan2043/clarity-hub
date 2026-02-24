@@ -56,7 +56,10 @@ export const CertificateLayout = ({
   };
 
   return (
-    <div className="w-full mx-auto bg-white shadow-2xl relative overflow-hidden" style={{ aspectRatio: '11 / 8.5' }}>
+    <div
+      className="w-full mx-auto bg-white shadow-2xl relative overflow-hidden"
+      style={{ aspectRatio: '11 / 8.5', containerType: 'inline-size' }}
+    >
       {/* Decorative Pattern - Top Left */}
       <div className="absolute top-0 left-0 w-[25%] h-[30%]">
         <svg viewBox="0 0 200 200" preserveAspectRatio="none" className="w-full h-full opacity-10">
@@ -92,19 +95,19 @@ export const CertificateLayout = ({
       </div>
 
       {/* Header with Logo */}
-      <div className="absolute top-[3%] right-[3%] flex items-center gap-3">
+      <div className="absolute top-[3%] right-[3%] flex items-center gap-[0.8cqi]">
         <span className="text-gray-600 text-[1.2cqi] font-medium">Life Is On</span>
         <div className="w-px h-[2cqi] bg-gray-300"></div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[0.3cqi]">
           <span className="text-[#3dcd58] font-bold text-[1.6cqi]">Schneider</span>
           <span className="text-[#3dcd58] text-[0.9cqi]">Electric</span>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col items-center justify-center h-full px-[6%] py-[5%]" style={{ containerType: 'inline-size' }}>
+      <div className="flex flex-col items-center justify-center h-full px-[6%] py-[5%]">
         {/* Certificate Title */}
-        <div className="mb-[1%]">
+        <div className="mb-[1cqi]">
           <EditableField
             field="title"
             value={content.title}
@@ -113,7 +116,7 @@ export const CertificateLayout = ({
         </div>
 
         {/* Subtitle */}
-        <div className="mb-[3%]">
+        <div className="mb-[2cqi]">
           <EditableField
             field="subtitle"
             value={content.subtitle}
@@ -122,17 +125,17 @@ export const CertificateLayout = ({
         </div>
 
         {/* Candidate Name */}
-        <div className="mb-[2%]">
+        <div className="mb-[1.5cqi]">
           <span className="text-[#3dcd58] text-[2.8cqi] font-bold">Mr. Name Surname</span>
           {isEditing && (
-            <span className="block text-[0.9cqi] text-gray-400 text-center mt-1">
+            <span className="block text-[0.9cqi] text-gray-400 text-center mt-[0.3cqi]">
               (Auto-filled with user name)
             </span>
           )}
         </div>
 
         {/* Recognition Text */}
-        <div className="mb-[2%]">
+        <div className="mb-[1.5cqi]">
           <EditableField
             field="recognitionText"
             value={content.recognitionText}
@@ -140,20 +143,23 @@ export const CertificateLayout = ({
           />
         </div>
 
-        {/* Course Name Banner */}
-        <div className="w-full bg-[#3dcd58] py-[1.5%] px-[4%] mb-[3%]">
+        {/* Course Name Banner - breaks out of padding to go edge-to-edge */}
+        <div
+          className="bg-[#3dcd58] py-[1.5cqi] px-[4cqi] mb-[2cqi]"
+          style={{ marginLeft: '-6.4%', marginRight: '-6.4%', width: 'calc(100% + 12.8%)' }}
+        >
           <h2 className="text-white text-[2.2cqi] font-bold text-center">
             {courseName || 'Course / Assessment Name'}
           </h2>
           {isEditing && (
-            <span className="block text-[0.8cqi] text-white/70 text-center mt-1">
+            <span className="block text-[0.8cqi] text-white/70 text-center mt-[0.3cqi]">
               (Selected from dropdown above)
             </span>
           )}
         </div>
 
         {/* Description */}
-        <div className="max-w-[80%] text-center mb-[3%]">
+        <div className="max-w-[80%] text-center mb-[2cqi]">
           <EditableField
             field="descriptionText"
             value={content.descriptionText}
@@ -163,7 +169,7 @@ export const CertificateLayout = ({
         </div>
 
         {/* Stats Section */}
-        <div className="flex justify-center gap-[6%] mb-[3%]">
+        <div className="flex justify-center gap-[6cqi] mb-[2cqi]">
           <div className="text-center">
             <span className="text-gray-500 text-[1cqi] block">Score</span>
             <span className="text-[#3dcd58] text-[2.6cqi] font-bold">80/100</span>
@@ -199,11 +205,11 @@ export const CertificateLayout = ({
           <div className="text-right text-gray-600 text-[1cqi]">
             <div>
               <span className="font-semibold">Date:</span> 27 Nov 2025
-              {isEditing && <span className="text-gray-400 text-[0.8cqi] ml-1">(Auto)</span>}
+              {isEditing && <span className="text-gray-400 text-[0.8cqi] ml-[0.3cqi]">(Auto)</span>}
             </div>
             <div>
               <span className="font-semibold">Duration:</span> 1 Hrs 30 Mins
-              {isEditing && <span className="text-gray-400 text-[0.8cqi] ml-1">(Auto)</span>}
+              {isEditing && <span className="text-gray-400 text-[0.8cqi] ml-[0.3cqi]">(Auto)</span>}
             </div>
           </div>
         </div>
