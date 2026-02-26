@@ -46,6 +46,8 @@ import ContentHubLessons from "./pages/ContentHubLessons";
 import CertificateTemplates from "./pages/CertificateTemplates";
 import CertificateTemplateCreate from "./pages/CertificateTemplateCreate";
 import CertificateTemplateEdit from "./pages/CertificateTemplateEdit";
+import RolePermissions from "./pages/admin/RolePermissions";
+import UserPermissions from "./pages/admin/UserPermissions";
 
 const queryClient = new QueryClient();
 
@@ -125,6 +127,8 @@ const AppRoutes = () => {
       <Route path="/admin/certificate-templates" element={<RouteErrorBoundary><CertificateTemplates /></RouteErrorBoundary>} />
       <Route path="/admin/certificate-templates/create" element={<RouteErrorBoundary><CertificateTemplateCreate /></RouteErrorBoundary>} />
       <Route path="/admin/certificate-templates/:id/edit" element={<RouteErrorBoundary><CertificateTemplateEdit /></RouteErrorBoundary>} />
+      <Route path="/admin/role-permissions" element={<RouteErrorBoundary><RolePermissions /></RouteErrorBoundary>} />
+      <Route path="/admin/user-permissions" element={<RouteErrorBoundary><UserPermissions /></RouteErrorBoundary>} />
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
