@@ -151,9 +151,11 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <RoleProvider>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <NotificationProvider>
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </NotificationProvider>
         </RoleProvider>
       </TooltipProvider>
     </QueryClientProvider>

@@ -33,6 +33,7 @@ import {
 import { useRole } from '@/contexts/RoleContext';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 
 interface TrainerLayoutProps {
   children: ReactNode;
