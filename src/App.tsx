@@ -48,6 +48,9 @@ import CertificateTemplateCreate from "./pages/CertificateTemplateCreate";
 import CertificateTemplateEdit from "./pages/CertificateTemplateEdit";
 import RolePermissions from "./pages/admin/RolePermissions";
 import UserPermissions from "./pages/admin/UserPermissions";
+import Assessments from "./pages/admin/Assessments";
+import Notifications from "./pages/Notifications";
+import { NotificationProvider } from "./hooks/use-notifications";
 
 const queryClient = new QueryClient();
 
