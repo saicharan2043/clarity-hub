@@ -132,6 +132,8 @@ const AppRoutes = () => {
       <Route path="/admin/certificate-templates/:id/edit" element={<RouteErrorBoundary><CertificateTemplateEdit /></RouteErrorBoundary>} />
       <Route path="/admin/role-permissions" element={<RouteErrorBoundary><RolePermissions /></RouteErrorBoundary>} />
       <Route path="/admin/user-permissions" element={<RouteErrorBoundary><UserPermissions /></RouteErrorBoundary>} />
+      <Route path="/admin/assessments" element={<RouteErrorBoundary><Assessments /></RouteErrorBoundary>} />
+      <Route path="/notifications" element={<RouteErrorBoundary><Notifications /></RouteErrorBoundary>} />
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
