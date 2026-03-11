@@ -48,6 +48,9 @@ import CertificateTemplateCreate from "./pages/CertificateTemplateCreate";
 import CertificateTemplateEdit from "./pages/CertificateTemplateEdit";
 import RolePermissions from "./pages/admin/RolePermissions";
 import UserPermissions from "./pages/admin/UserPermissions";
+import Assessments from "./pages/admin/Assessments";
+import Notifications from "./pages/Notifications";
+import { NotificationProvider } from "./hooks/use-notifications";
 
 const queryClient = new QueryClient();
 
@@ -129,6 +132,8 @@ const AppRoutes = () => {
       <Route path="/admin/certificate-templates/:id/edit" element={<RouteErrorBoundary><CertificateTemplateEdit /></RouteErrorBoundary>} />
       <Route path="/admin/role-permissions" element={<RouteErrorBoundary><RolePermissions /></RouteErrorBoundary>} />
       <Route path="/admin/user-permissions" element={<RouteErrorBoundary><UserPermissions /></RouteErrorBoundary>} />
+      <Route path="/admin/assessments" element={<RouteErrorBoundary><Assessments /></RouteErrorBoundary>} />
+      <Route path="/notifications" element={<RouteErrorBoundary><Notifications /></RouteErrorBoundary>} />
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
@@ -146,9 +151,11 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <RoleProvider>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <NotificationProvider>
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </NotificationProvider>
         </RoleProvider>
       </TooltipProvider>
     </QueryClientProvider>

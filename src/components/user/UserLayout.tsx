@@ -28,6 +28,7 @@ import {
 import { useRole } from '@/contexts/RoleContext';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 
 interface UserLayoutProps {
   children: ReactNode;
@@ -185,12 +186,7 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
             </DropdownMenu>
 
             {/* Notifications */}
-            <Button variant="ghost" size="icon" className="h-9 w-9 relative">
-              <Bell className="h-4 w-4" />
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-destructive text-xs">
-                2
-              </Badge>
-            </Button>
+            <NotificationBell />
 
             {/* Profile */}
             <DropdownMenu>
